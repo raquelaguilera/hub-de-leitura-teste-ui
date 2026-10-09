@@ -3,7 +3,7 @@ describe("Funcionalidade: Contato", () => {
 
 
   beforeEach (() => {
-  cy.visit('http://localhost:3000/index.html')
+  cy.visit('index.html')
 
   })
  
@@ -38,10 +38,10 @@ describe("Funcionalidade: Contato", () => {
   })
 
 
-  it('Deve validar mensagem de erro ao enviar sem selecionar o assunto', () => {
+  it.only('Deve validar mensagem de erro ao enviar sem selecionar o assunto', () => {
     cy.get('[name="name"]').type('Raquel Aguilera')
     cy.get('[name="email"]').type('raquel@teste.com')
-    cy.get('select[name="subject"]').clear
+    cy.get('select[name="subject"]').select('')
     cy.get('[name="message"]').type('Mensagem de teste')
     cy.get('#btn-submit').click()
     //Resultado esperado
