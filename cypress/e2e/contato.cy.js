@@ -38,7 +38,7 @@ describe("Funcionalidade: Contato", () => {
   })
 
 
-  it.only('Deve validar mensagem de erro ao enviar sem selecionar o assunto', () => {
+  it('Deve validar mensagem de erro ao enviar sem selecionar o assunto', () => {
     cy.get('[name="name"]').type('Raquel Aguilera')
     cy.get('[name="email"]').type('raquel@teste.com')
     cy.get('select[name="subject"]').select('')
