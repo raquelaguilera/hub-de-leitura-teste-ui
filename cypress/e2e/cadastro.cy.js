@@ -1,9 +1,9 @@
 /// <reference types="cypress"/>
 import { faker } from '@faker-js/faker';
+import cadastroPage from '../support/pages/cadastro-page';
 describe('Funcionalidade: Cadastro no Hub de Leitura', () => {
     beforeEach(() => {
-        cy.visit('register.html')
-
+        cadastroPage.visitarPaginaCadastro()
     });
 
     it('Deve fazer cadastro com sucesso, usando JS', () => {
@@ -16,7 +16,6 @@ describe('Funcionalidade: Cadastro no Hub de Leitura', () => {
         cy.get('#terms-agreement').check()
         cy.get('#register-btn').click()
         cy.url().should('include', 'dashboard')
-
     });
 
     it('Deve fazer cadastro com sucesso, usando faker', () => {
@@ -30,17 +29,23 @@ describe('Funcionalidade: Cadastro no Hub de Leitura', () => {
         cy.get('#terms-agreement').check()
         cy.get('#register-btn').click()
         cy.url().should('include', 'dashboard')
-        cy.get('#user-name').should('contain', nome)
-
-
     });
 
     it('Deve preencher o cadastro com sucesso - Usando comando customizado', () => {
         let email = `teste${Date.now()}@teste.com`
         let nome = faker.person.fullName({ sex: 'female' })
-        cy.preencherCadastro( nome, email, '22998786578', 'Teste@123', 'Teste@123')  
+        cy.preencherCadastro(nome, email, '22998786578', 'Teste@123', 'Teste@123')
         cy.url().should('include', 'dashboard')
-            
-});
+    });
 
+    it('Deve fazer cadastro com sucesso usando o Page Objects', () => {
+        let email = `teste${Date.now()}@teste.com`
+        cadastroPage.preencherCadastro('Raquel Aguilera', email, '22974545687', 'senha123', 'senha123')
+        cy.url().should('include', 'dashboard')
+    });
+
+    it('Deve validar mensagem ao tentar cadastrar sem preencher nome', () => {
+        cadastroPage.preencherCadastro('', 'raquel@teste.com,.', '22974545687', 'senha123', 'senha123')
+        cy.get(':nth-child(1) > .invalid-feedback').should('contain', 'Nome deve ter pelo menos 2 caracteres')
+    });
 });

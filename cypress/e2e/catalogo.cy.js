@@ -40,11 +40,11 @@ describe('Funcionalidade: Catalogo de livros', () => {
 
      it('Deve clicar no nome do livro e direcionar para a tela do livro', () => {
           cy.contains('Dom Casmurro').click()
-          cy.url().should('include','book-details')
+          cy.url().should('include', 'book-details')
           cy.get('#add-to-cart-btn').click()
           cy.get('#alert-container').should('contain', 'Livro adicionado à cesta com sucesso!')
 
- 
+
      });
 
 
