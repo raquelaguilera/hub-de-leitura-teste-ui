@@ -27,7 +27,7 @@ describe('Funcionalidade: Busca no catálogo de livros', () => {
           cy.fixture('livros').then((cat) => {
                cat.forEach(item => {
                     cy.get('#search-input').clear().type(item.livro)
-                     cy.get('.card-title > .text-dark').should('contain', item.livro)
+                    cy.get('.card-title > .text-dark').should('contain', item.livro)
                })
 
           })
